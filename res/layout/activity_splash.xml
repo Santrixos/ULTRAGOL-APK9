@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@id/Img_Splash"
+        android:background="@drawable/bg_splash_default"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop" />
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="100.0dip"
+                android:layout_height="100.0dip"
+                android:src="@drawable/icon" />
+            <TextView
+                android:textSize="12.0dip"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15.0dip"
+                android:text="@string/splash_loading" />
+            <ProgressBar
+                android:id="@id/progressBar"
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_marginTop="15.0dip"
+                android:indeterminateDrawable="@drawable/progress_splash"
+                android:layout_alignParentBottom="true"
+                style="?android:progressBarStyle" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="70.0dip"
+        android:layout_alignParentBottom="true">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_idle_charging" />
+            <TextView
+                android:textSize="10.0dip"
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dip"
+                android:text="@string/splash_into" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

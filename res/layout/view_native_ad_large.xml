@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:id="@id/native_ad_view_container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <com.solodroid.ads.sdk.util.TemplateView
+            android:id="@id/admob_native_ad_container"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:gnt_template_type="@layout/gnt_admob_large_template_view" />
+        <com.solodroid.ads.sdk.util.AdManagerTemplateView
+            android:id="@id/google_ad_manager_native_ad_container"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:gnt_template_type="@layout/gnt_ad_manager_large_template_view" />
+        <com.facebook.ads.NativeAdLayout
+            android:id="@id/fan_native_ad_container"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+        <include
+            android:id="@id/startapp_native_ad_container"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            layout="@layout/gnt_startapp_large_template_view" />
+        <FrameLayout
+            android:id="@id/applovin_native_ad_container"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+        <ProgressBar
+            android:id="@id/progress_bar_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:id="@id/lyt_parent"
+    android:background="?android:selectableItemBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_space_channel"
+    android:foreground="?selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@id/channel_image"
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/img_content_description"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Image.Rounded" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="8.0dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/overflow">
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textSize="@dimen/text_title_size"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:id="@id/channel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RCTI"
+                android:maxLines="1" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3.0dip">
+                <TextView
+                    android:textSize="@dimen/text_sub_title_size"
+                    android:ellipsize="end"
+                    android:id="@id/channel_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Entertainment"
+                    android:maxLines="1" />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@id/overflow"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="12.0dip"
+            android:layout_width="24.0dip"
+            android:layout_height="48.0dip"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            app:srcCompat="@drawable/ic_dots" />
+    </RelativeLayout>
+</LinearLayout>

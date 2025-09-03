@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="0.0dip"
+            app:layout_constraintDimensionRatio="H,2:1.2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@id/channel_image"
+                android:background="?android:selectableItemBackground"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:foreground="?selectableItemBackground"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/img_content_description" />
+            <ImageView
+                android:layout_width="72.0dip"
+                android:layout_height="72.0dip"
+                android:src="@drawable/ic_play"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/img_content_description"
+                android:alpha="0.8" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@id/lyt_head"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12.0dip"
+        android:layout_marginTop="12.0dip"
+        android:layout_marginRight="12.0dip">
+        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+            android:textSize="20.0sp"
+            android:textStyle="bold"
+            android:id="@id/channel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3.0dip"
+            android:layout_below="@id/channel_name">
+            <TextView
+                android:textSize="@dimen/text_content_sub_title_size"
+                android:id="@id/channel_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="4.0dip"
+        android:layout_marginRight="4.0dip">
+        <WebView
+            android:id="@id/channel_description"
+            android:scrollbars="none"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <com.solodroid.ads.sdk.ui.MediumNativeAdView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12.0dip"
+        android:layout_marginRight="12.0dip" />
+    <RelativeLayout
+        android:orientation="vertical"
+        android:id="@id/lyt_suggested"
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6.0dip"
+        android:layout_marginBottom="12.0dip">
+        <TextView
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+            android:textSize="16.0sp"
+            android:textStyle="bold"
+            android:id="@id/txt_suggested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:text="" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@id/recycler_view_suggested"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4.0dip"
+            android:layout_below="@id/txt_suggested" />
+    </RelativeLayout>
+</LinearLayout>
