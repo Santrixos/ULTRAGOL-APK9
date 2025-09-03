@@ -12,26 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import android.os.AsyncTask;
 import com.app.thestream.adapters.PartidoAdapter;
 import com.app.thestream.models.CalendarioLigaMX;
 import com.app.thestream.models.Jornada;
 import com.app.thestream.models.Partido;
-import com.google.gson.Gson;
+import com.app.thestream.utils.CalendarDataLoader;
 import com.mexicotv.futbolenvivoabierta.R;
-import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityCalendarLigaMX extends AppCompatActivity {
     
     private static final String TAG = "CalendarLigaMX";
-    private static final String CALENDAR_URL = "https://cf77ea29-4f6d-4003-ba1e-3f66a8aff881-00-2fvaq65u7292z.kirk.replit.dev/calendar";
     
     private Toolbar toolbar;
     private TextView tvJornadaInfo, tvJornadaNumero, tvJornadaFechas, tvJornadaTipo, tvTotalJornadas;
@@ -43,7 +36,6 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
     private PartidoAdapter partidoAdapter;
     private CalendarioLigaMX calendarioLigaMX;
     private int jornadaActual = 1;
-    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +63,6 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
         layoutEmpty = findViewById(R.id.layout_empty);
         jornadaInfoSection = findViewById(R.id.jornada_info_section);
         statsFooter = findViewById(R.id.stats_footer);
-        
-        requestQueue = Volley.newRequestQueue(this);
     }
     
     private void setupToolbar() {
@@ -108,39 +98,25 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
     private void loadCalendario() {
         showLoading(true);
         
-        JsonObjectRequest request = new JsonObjectRequest(
-            Request.Method.GET, 
-            CALENDAR_URL, 
-            null,
-            new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        Gson gson = new Gson();
-                        calendarioLigaMX = gson.fromJson(response.toString(), CalendarioLigaMX.class);
-                        
-                        if (calendarioLigaMX != null && calendarioLigaMX.getJornadas() != null) {
-                            updateStats();
-                            loadJornada(jornadaActual);
-                        } else {
-                            showError();
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error parsing calendar data", e);
-                        showError();
-                    }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "Error loading calendar", error);
+        // Cargar datos desde archivo local en background thread
+        new AsyncTask<Void, Void, CalendarioLigaMX>() {
+            @Override
+            protected CalendarioLigaMX doInBackground(Void... voids) {
+                return CalendarDataLoader.loadCalendarFromAssets(ActivityCalendarLigaMX.this);
+            }
+            
+            @Override
+            protected void onPostExecute(CalendarioLigaMX calendar) {
+                calendarioLigaMX = calendar;
+                
+                if (calendarioLigaMX != null && calendarioLigaMX.getJornadas() != null) {
+                    updateStats();
+                    loadJornada(jornadaActual);
+                } else {
                     showError();
                 }
             }
-        );
-        
-        requestQueue.add(request);
+        }.execute();
     }
     
     private void loadJornada(int numeroJornada) {
@@ -225,8 +201,5 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (requestQueue != null) {
-            requestQueue.cancelAll(TAG);
-        }
     }
 }
