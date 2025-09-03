@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_gemini_analisis"
+        android:title="🤖 Análisis AI"
+        android:icon="@android:drawable/ic_dialog_info"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_gemini_noticias"
+        android:title="📰 Noticias AI"
+        android:icon="@android:drawable/ic_menu_agenda"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_actualizar"
+        android:title="🔄 Actualizar"
+        android:icon="@android:drawable/ic_menu_rotate"
+        app:showAsAction="never" />
+
+</menu>
