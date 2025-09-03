@@ -34,6 +34,16 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' });
             res.end(data);
         });
+    } else if (req.url === '/calendar') {
+        fs.readFile('./ligamx-calendar.json', 'utf8', (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('Calendario no encontrado');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+            res.end(data);
+        });
     } else {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Página no encontrada');
@@ -44,6 +54,7 @@ server.listen(PORT, '0.0.0.0', () => {
     console.log(`🎨 Servidor de visualización de colores iniciado en puerto ${PORT}`);
     console.log(`📱 Mostrando la paleta de colores actualizada: Negro, Blanco y Naranja`);
     console.log(`✅ Archivo colors.xml editado exitosamente`);
+    console.log(`⚽ Calendario Liga MX integrado profesionalmente`);
     console.log(`🌐 Accede a la aplicación en: http://localhost:${PORT}`);
 });
 

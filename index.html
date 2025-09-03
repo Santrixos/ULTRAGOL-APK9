@@ -137,6 +137,169 @@
             display: none;
             z-index: 1000;
         }
+
+        /* ESTILOS CALENDARIO LIGA MX */
+        .calendar-container {
+            max-height: 600px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .calendar-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .calendar-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .calendar-container::-webkit-scrollbar-thumb {
+            background: #ff8c00;
+            border-radius: 4px;
+        }
+
+        .match-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 140, 0, 0.1));
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .match-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.3);
+            border-color: rgba(255, 140, 0, 0.5);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .match-teams {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .team-home {
+            color: #ffffff;
+            text-align: right;
+            flex: 1;
+            text-transform: uppercase;
+        }
+
+        .vs-separator {
+            color: #ff8c00;
+            margin: 0 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .team-away {
+            color: #ffffff;
+            text-align: left;
+            flex: 1;
+            text-transform: uppercase;
+        }
+
+        .match-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            color: #ff8c00;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: #ffffff;
+            font-size: 0.95rem;
+        }
+
+        .jornada-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(0, 0, 0, 0.3));
+            border-radius: 12px;
+            border: 2px solid rgba(255, 140, 0, 0.4);
+        }
+
+        .jornada-number {
+            color: #ff8c00;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .jornada-dates {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .calendar-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .match-teams {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .team-home, .team-away {
+                text-align: center;
+            }
+
+            .vs-separator {
+                margin: 10px 0;
+            }
+
+            .match-info {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -211,6 +374,43 @@
                 para mantener la consistencia visual y evitar errores de compilación.
             </p>
         </div>
+
+        <!-- CALENDARIO LIGA MX -->
+        <div class="demo-section" style="margin-top: 40px;">
+            <h2 class="section-title">⚽ Calendario Liga MX - Temporada Oficial</h2>
+            
+            <div class="calendar-controls" style="margin-bottom: 30px; text-align: center;">
+                <button class="demo-button" onclick="loadJornada(currentJornada - 1)">⬅️ Anterior</button>
+                <span id="jornadaInfo" style="color: #ff8c00; font-size: 1.2rem; margin: 0 20px; font-weight: bold;">
+                    Cargando calendario...
+                </span>
+                <button class="demo-button" onclick="loadJornada(currentJornada + 1)">➡️ Siguiente</button>
+            </div>
+
+            <div id="calendarioContainer" class="calendar-container">
+                <div class="loading-spinner" style="text-align: center; color: #ff8c00; font-size: 1.2rem;">
+                    🔄 Cargando partidos de Liga MX...
+                </div>
+            </div>
+
+            <div class="calendar-stats" style="margin-top: 30px; padding: 20px; background: rgba(255, 140, 0, 0.1); border-radius: 8px; border: 1px solid rgba(255, 140, 0, 0.3);">
+                <h3 style="color: #ff8c00; margin-bottom: 15px;">📊 Estadísticas del Torneo</h3>
+                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div class="stat-item">
+                        <strong style="color: #ff8c00;">Total de Jornadas:</strong>
+                        <span id="totalJornadas">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong style="color: #ff8c00;">Partidos por Jornada:</strong>
+                        <span id="partidosPorJornada">9</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong style="color: #ff8c00;">Equipos Participantes:</strong>
+                        <span>18</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="toast" id="toast">
@@ -218,6 +418,10 @@
     </div>
 
     <script>
+        // Variables globales
+        let ligaMXData = null;
+        let currentJornada = 1;
+
         function showToast() {
             const toast = document.getElementById('toast');
             toast.style.display = 'block';
@@ -225,10 +429,165 @@
                 toast.style.display = 'none';
             }, 3000);
         }
-        
-        // Mostrar mensaje inicial
+
+        // FUNCIONES CALENDARIO LIGA MX
+        async function loadLigaMXData() {
+            try {
+                const response = await fetch('/calendar');
+                ligaMXData = await response.json();
+                
+                // Actualizar estadísticas
+                document.getElementById('totalJornadas').textContent = ligaMXData.jornadas.length;
+                
+                // Cargar primera jornada
+                loadJornada(1);
+                
+                console.log('📅 Calendario Liga MX cargado:', ligaMXData.jornadas.length, 'jornadas');
+            } catch (error) {
+                console.error('❌ Error cargando calendario:', error);
+                document.getElementById('calendarioContainer').innerHTML = `
+                    <div style="text-align: center; color: #ff8c00; padding: 40px;">
+                        ❌ Error cargando el calendario Liga MX
+                        <br><small style="color: #ffffff;">Intenta recargar la página</small>
+                    </div>
+                `;
+            }
+        }
+
+        function loadJornada(numero) {
+            if (!ligaMXData) return;
+            
+            const totalJornadas = ligaMXData.jornadas.length;
+            
+            // Validar límites
+            if (numero < 1) numero = 1;
+            if (numero > totalJornadas) numero = totalJornadas;
+            
+            currentJornada = numero;
+            const jornada = ligaMXData.jornadas[numero - 1];
+            
+            if (!jornada) {
+                console.error('Jornada no encontrada:', numero);
+                return;
+            }
+
+            // Actualizar información de la jornada
+            document.getElementById('jornadaInfo').innerHTML = `
+                Jornada ${jornada.numero} de ${totalJornadas}
+            `;
+
+            // Actualizar botones de navegación
+            const btnAnterior = document.querySelector('.calendar-controls button:first-child');
+            const btnSiguiente = document.querySelector('.calendar-controls button:last-child');
+            
+            btnAnterior.disabled = (numero <= 1);
+            btnSiguiente.disabled = (numero >= totalJornadas);
+
+            // Renderizar jornada
+            renderJornada(jornada);
+        }
+
+        function renderJornada(jornada) {
+            const container = document.getElementById('calendarioContainer');
+            
+            let html = `
+                <div class="jornada-header">
+                    <div class="jornada-number">JORNADA ${jornada.numero}</div>
+                    <div class="jornada-dates">${jornada.fechas}</div>
+                    ${jornada.tipo ? `<div style="color: #ff8c00; margin-top: 10px; font-size: 0.9rem;">⚡ ${jornada.tipo}</div>` : ''}
+                </div>
+            `;
+
+            jornada.partidos.forEach(partido => {
+                html += `
+                    <div class="match-card">
+                        <div class="match-teams">
+                            <div class="team-home">
+                                ${partido.local}
+                            </div>
+                            <div class="vs-separator">VS</div>
+                            <div class="team-away">
+                                ${partido.visitante}
+                            </div>
+                        </div>
+                        
+                        <div class="match-info">
+                            <div class="info-item">
+                                <span class="info-label">📅 Día</span>
+                                <span class="info-value">${partido.dia}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">🕐 Hora</span>
+                                <span class="info-value">${partido.hora}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">🏟️ Estadio</span>
+                                <span class="info-value">${partido.estadio}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // Animación de entrada
+            const cards = container.querySelectorAll('.match-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        function getDayIcon(dia) {
+            const icons = {
+                'VIERNES': '🌙',
+                'SÁBADO': '⭐',
+                'DOMINGO': '☀️',
+                'LUNES': '🌅',
+                'MARTES': '🌟',
+                'MIÉRCOLES': '⚡'
+            };
+            return icons[dia.split(' ')[0]] || '📅';
+        }
+
+        function showCalendarToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (!ligaMXData) return;
+            
+            if (e.key === 'ArrowLeft' && currentJornada > 1) {
+                loadJornada(currentJornada - 1);
+                showCalendarToast(`⬅️ Jornada ${currentJornada}`);
+            } else if (e.key === 'ArrowRight' && currentJornada < ligaMXData.jornadas.length) {
+                loadJornada(currentJornada + 1);
+                showCalendarToast(`➡️ Jornada ${currentJornada}`);
+            }
+        });
+
+        // Inicialización
         window.addEventListener('load', () => {
+            // Mensaje inicial de colores
             setTimeout(showToast, 1000);
+            
+            // Cargar calendario Liga MX
+            setTimeout(() => {
+                loadLigaMXData();
+                showCalendarToast('⚽ Calendario Liga MX cargado exitosamente!');
+            }, 2000);
         });
     </script>
 </body>
