@@ -517,4 +517,17 @@
     <dimen name="video_secondary_font_size">13.0sp</dimen>
     <dimen name="video_thumbnail_height">96.0dip</dimen>
     <dimen name="video_thumbnail_width">128.0dip</dimen>
+    
+    <!-- Liga MX Calendar Dimensions -->
+    <dimen name="calendar_header_padding">16.0dip</dimen>
+    <dimen name="calendar_card_margin">6.0dip</dimen>
+    <dimen name="calendar_card_padding">16.0dip</dimen>
+    <dimen name="calendar_card_radius">8.0dip</dimen>
+    <dimen name="calendar_icon_size">20.0dip</dimen>
+    <dimen name="calendar_button_height">40.0dip</dimen>
+    <dimen name="calendar_team_text_size">16.0sp</dimen>
+    <dimen name="calendar_vs_text_size">18.0sp</dimen>
+    <dimen name="calendar_info_text_size">12.0sp</dimen>
+    <dimen name="calendar_title_text_size">20.0sp</dimen>
+    <dimen name="calendar_jornada_text_size">24.0sp</dimen>
 </resources>

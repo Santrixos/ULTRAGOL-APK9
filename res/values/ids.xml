@@ -528,4 +528,31 @@
     <item type="id" name="web_view" />
     <item type="id" name="youtube_view" />
     <item type="id" name="zero_corner_chip" />
+    
+    <!-- Liga MX Calendar IDs -->
+    <item type="id" name="calendar_header" />
+    <item type="id" name="tv_calendar_title" />
+    <item type="id" name="tv_temporada" />
+    <item type="id" name="navigation_controls" />
+    <item type="id" name="btn_anterior" />
+    <item type="id" name="btn_siguiente" />
+    <item type="id" name="tv_jornada_info" />
+    <item type="id" name="jornada_info_section" />
+    <item type="id" name="tv_jornada_numero" />
+    <item type="id" name="tv_jornada_fechas" />
+    <item type="id" name="tv_jornada_tipo" />
+    <item type="id" name="recycler_partidos" />
+    <item type="id" name="progress_loading" />
+    <item type="id" name="layout_empty" />
+    <item type="id" name="stats_footer" />
+    <item type="id" name="tv_total_jornadas" />
+    <item type="id" name="tv_equipo_local" />
+    <item type="id" name="tv_equipo_visitante" />
+    <item type="id" name="tv_dia" />
+    <item type="id" name="tv_hora" />
+    <item type="id" name="tv_estadio" />
+    <item type="id" name="tv_partido_especial" />
+    <item type="id" name="frame_content" />
+    <item type="id" name="appbar_layout" />
+    <item type="id" name="navigation_calendar" />
 </resources>

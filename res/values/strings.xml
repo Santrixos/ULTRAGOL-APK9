@@ -340,4 +340,30 @@
     <string name="txt_suggested">Suggested :</string>
     <string name="unity_ads_announcement">&lt;p>Following up on the new Google Play rules regarding the error message received due to the Non Compliant SDK from Unity Ads SDK issue, we have temporarily removed the integration of ads using Unity Ads in the Multiple Ad Networks SDK for an indefinite period of time until this issue is resolved by the Official Unity Technologies Developer Team.&lt;/p> &lt;p>Please change your ad type in the admin panel or json remote configuration with another ad network such as AdMob, Start.io, AppLovin Max, AppLovin Discovery, IronSource or Audience Network Bidding.&lt;/p> &lt;p>Note that this prompt will only be shown in your development builds. Live apps will not be affected and Unity Ads will not shows&lt;/p></string>
     <string name="whops">Whoops!</string>
+    
+    <!-- Liga MX Calendar Strings -->
+    <string name="title_nav_calendar">Calendario Liga MX</string>
+    <string name="calendario_liga_mx">Calendario Liga MX</string>
+    <string name="jornada_numero">Jornada %1$d</string>
+    <string name="jornada_info">Jornada %1$d de %2$d</string>
+    <string name="fecha_jornada">Fechas: %1$s</string>
+    <string name="partido_vs">VS</string>
+    <string name="equipo_local">Local</string>
+    <string name="equipo_visitante">Visitante</string>
+    <string name="dia_partido">Día</string>
+    <string name="hora_partido">Hora</string>
+    <string name="estadio_partido">Estadio</string>
+    <string name="btn_anterior">Anterior</string>
+    <string name="btn_siguiente">Siguiente</string>
+    <string name="btn_jornada_actual">Jornada Actual</string>
+    <string name="calendario_cargando">Cargando calendario...</string>
+    <string name="calendario_error">Error al cargar el calendario</string>
+    <string name="total_jornadas">Total de Jornadas</string>
+    <string name="partidos_por_jornada">Partidos por Jornada</string>
+    <string name="equipos_participantes">Equipos Participantes</string>
+    <string name="temporada_actual">Temporada Actual Liga MX</string>
+    <string name="estadisticas_torneo">Estadísticas del Torneo</string>
+    <string name="no_partidos_disponibles">No hay partidos disponibles para esta jornada</string>
+    <string name="partido_reprogramado">Reprogramado</string>
+    <string name="jornada_doble">Jornada Doble</string>
 </resources>
