@@ -380,11 +380,11 @@
             <h2 class="section-title">⚽ Calendario Liga MX - Temporada Oficial</h2>
             
             <div class="calendar-controls" style="margin-bottom: 30px; text-align: center;">
-                <button class="demo-button" onclick="loadJornada(currentJornada - 1)">⬅️ Anterior</button>
+                <button class="demo-button" id="btnAnterior" onclick="navegarJornada(-1)">⬅️ Anterior</button>
                 <span id="jornadaInfo" style="color: #ff8c00; font-size: 1.2rem; margin: 0 20px; font-weight: bold;">
                     Cargando calendario...
                 </span>
-                <button class="demo-button" onclick="loadJornada(currentJornada + 1)">➡️ Siguiente</button>
+                <button class="demo-button" id="btnSiguiente" onclick="navegarJornada(1)">➡️ Siguiente</button>
             </div>
 
             <div id="calendarioContainer" class="calendar-container">
@@ -433,6 +433,17 @@
         // FUNCIONES CALENDARIO LIGA MX
         async function loadLigaMXData() {
             try {
+                // Deshabilitar botones mientras carga
+                const btnAnterior = document.getElementById('btnAnterior');
+                const btnSiguiente = document.getElementById('btnSiguiente');
+                
+                if (btnAnterior && btnSiguiente) {
+                    btnAnterior.disabled = true;
+                    btnSiguiente.disabled = true;
+                    btnAnterior.style.opacity = '0.5';
+                    btnSiguiente.style.opacity = '0.5';
+                }
+                
                 const response = await fetch('/calendar');
                 ligaMXData = await response.json();
                 
@@ -440,9 +451,12 @@
                 document.getElementById('totalJornadas').textContent = ligaMXData.jornadas.length;
                 
                 // Cargar primera jornada
+                currentJornada = 1;
                 loadJornada(1);
                 
                 console.log('📅 Calendario Liga MX cargado:', ligaMXData.jornadas.length, 'jornadas');
+                showCalendarToast('✅ Calendario cargado correctamente');
+                
             } catch (error) {
                 console.error('❌ Error cargando calendario:', error);
                 document.getElementById('calendarioContainer').innerHTML = `
@@ -451,11 +465,26 @@
                         <br><small style="color: #ffffff;">Intenta recargar la página</small>
                     </div>
                 `;
+                showCalendarToast('❌ Error cargando calendario');
             }
         }
 
+        function navegarJornada(direccion) {
+            if (!ligaMXData || !ligaMXData.jornadas) {
+                console.warn('⚠️ Datos del calendario no están listos');
+                showCalendarToast('⚠️ Espera a que se cargue el calendario');
+                return;
+            }
+            
+            const nuevaJornada = currentJornada + direccion;
+            loadJornada(nuevaJornada);
+        }
+
         function loadJornada(numero) {
-            if (!ligaMXData) return;
+            if (!ligaMXData || !ligaMXData.jornadas) {
+                console.warn('⚠️ Datos del calendario no disponibles');
+                return;
+            }
             
             const totalJornadas = ligaMXData.jornadas.length;
             
@@ -467,7 +496,7 @@
             const jornada = ligaMXData.jornadas[numero - 1];
             
             if (!jornada) {
-                console.error('Jornada no encontrada:', numero);
+                console.error('❌ Jornada no encontrada:', numero);
                 return;
             }
 
@@ -477,14 +506,35 @@
             `;
 
             // Actualizar botones de navegación
-            const btnAnterior = document.querySelector('.calendar-controls button:first-child');
-            const btnSiguiente = document.querySelector('.calendar-controls button:last-child');
+            const btnAnterior = document.getElementById('btnAnterior');
+            const btnSiguiente = document.getElementById('btnSiguiente');
             
-            btnAnterior.disabled = (numero <= 1);
-            btnSiguiente.disabled = (numero >= totalJornadas);
+            if (btnAnterior && btnSiguiente) {
+                btnAnterior.disabled = (numero <= 1);
+                btnSiguiente.disabled = (numero >= totalJornadas);
+                
+                // Cambiar estilos visuales para botones deshabilitados
+                if (numero <= 1) {
+                    btnAnterior.style.opacity = '0.5';
+                    btnAnterior.style.cursor = 'not-allowed';
+                } else {
+                    btnAnterior.style.opacity = '1';
+                    btnAnterior.style.cursor = 'pointer';
+                }
+                
+                if (numero >= totalJornadas) {
+                    btnSiguiente.style.opacity = '0.5';
+                    btnSiguiente.style.cursor = 'not-allowed';
+                } else {
+                    btnSiguiente.style.opacity = '1';
+                    btnSiguiente.style.cursor = 'pointer';
+                }
+            }
 
             // Renderizar jornada
             renderJornada(jornada);
+            
+            console.log(`✅ Cargada jornada ${numero} de ${totalJornadas}`);
         }
 
         function renderJornada(jornada) {
