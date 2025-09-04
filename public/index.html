@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga MX Calendar - Calendario de Partidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Liga MX Calendar</h1>
+            <p>Calendario Completo de Partidos - Temporada 2024</p>
+        </header>
+
+        <div class="controls">
+            <select id="jornadaFilter">
+                <option value="">Todas las Jornadas</option>
+            </select>
+            <input type="text" id="teamSearch" placeholder="Buscar equipo...">
+        </div>
+
+        <div id="loading" class="loading">Cargando calendario...</div>
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="calendar" class="calendar-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

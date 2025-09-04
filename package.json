@@ -7,10 +7,19 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "keywords": ["ligamx", "calendar", "football", "soccer", "mexico"],
+  "keywords": [
+    "ligamx",
+    "calendar",
+    "football",
+    "soccer",
+    "mexico"
+  ],
   "author": "Liga MX Calendar Team",
   "license": "ISC",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
