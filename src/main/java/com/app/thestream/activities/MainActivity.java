@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_settings:
                 // Manejar navegación a configuración
                 break;
+            case R.id.navigation_streaming:
+                // Manejar navegación a transmisiones
+                NavigationHelper.openViewStreamingLinks(this);
+                return true;
         }
         
         return false;

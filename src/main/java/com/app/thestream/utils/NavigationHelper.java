@@ -3,11 +3,17 @@ package com.app.thestream.utils;
 import android.content.Context;
 import android.content.Intent;
 import com.app.thestream.activities.ActivityCalendarLigaMX;
+import com.app.thestream.activities.ViewStreamingLinksActivity;
 
 public class NavigationHelper {
     
     public static void openCalendarLigaMX(Context context) {
         Intent intent = new Intent(context, ActivityCalendarLigaMX.class);
+        context.startActivity(intent);
+    }
+    
+    public static void openViewStreamingLinks(Context context) {
+        Intent intent = new Intent(context, ViewStreamingLinksActivity.class);
         context.startActivity(intent);
     }
     
