@@ -1,0 +1,16 @@
+{
+  "name": "ligamx-calendar",
+  "version": "1.0.0",
+  "description": "Liga MX Calendar web application with color visualizer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["ligamx", "calendar", "football", "soccer", "mexico"],
+  "author": "Liga MX Calendar Team",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
