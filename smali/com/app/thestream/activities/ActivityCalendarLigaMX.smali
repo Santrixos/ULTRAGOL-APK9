@@ -120,6 +120,29 @@
     return-void
 .end method
 
+.method static synthetic access$400(Lcom/app/thestream/activities/ActivityCalendarLigaMX;)I
+    .registers 2
+    .param p0, "x0"    # Lcom/app/thestream/activities/ActivityCalendarLigaMX;
+
+    .prologue
+    .line 29
+    iget v0, p0, Lcom/app/thestream/activities/ActivityCalendarLigaMX;->jornadaActual:I
+
+    return v0
+.end method
+
+.method static synthetic access$402(Lcom/app/thestream/activities/ActivityCalendarLigaMX;I)I
+    .registers 2
+    .param p0, "x0"    # Lcom/app/thestream/activities/ActivityCalendarLigaMX;
+    .param p1, "x1"    # I
+
+    .prologue
+    .line 29
+    iput p1, p0, Lcom/app/thestream/activities/ActivityCalendarLigaMX;->jornadaActual:I
+
+    return p1
+.end method
+
 .method private initGeminiService()V
     .registers 3
 
