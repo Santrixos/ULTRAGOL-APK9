@@ -21,8 +21,4 @@
         android:icon="@android:drawable/ic_menu_agenda"
         android:id="@id/navigation_calendar"
         android:title="@string/title_nav_calendar" />
-    <item
-        android:icon="@android:drawable/ic_media_play"
-        android:id="@+id/navigation_streaming"
-        android:title="Transmisiones" />
 </menu>
