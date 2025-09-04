@@ -3,7 +3,16 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="8.0dip"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4.0dip"
+        app:cardCornerRadius="16.0dip"
+        app:cardBackgroundColor="@color/colorBackgroundDark"
+        app:cardElevation="6.0dip">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -12,34 +21,44 @@
             android:id="@id/btn_switch_theme"
             android:background="?android:selectableItemBackground"
             android:paddingLeft="20.0dip"
-            android:paddingTop="16.0dip"
+            android:paddingTop="18.0dip"
             android:paddingRight="20.0dip"
-            android:paddingBottom="16.0dip"
+            android:paddingBottom="18.0dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:foreground="?selectableItemBackground">
-            <ImageView
+            <RelativeLayout
                 android:layout_gravity="center"
-                android:layout_width="28.0dip"
-                android:layout_height="28.0dip"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:background="@drawable/gradient_circle_background">
+            <ImageView
+                android:layout_width="24.0dip"
+                android:layout_height="24.0dip"
+                android:layout_centerInParent="true"
                 android:src="@drawable/ic_setting_theme"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:tint="@color/colorAccent" />
+            </RelativeLayout>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20.0dip">
                 <TextView
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                     android:textSize="@dimen/text_title_size"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
                     android:text="@string/title_setting_theme" />
                 <TextView
                     android:textSize="@dimen/text_sub_title_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:alpha="0.8"
                     android:text="@string/sub_title_setting_theme" />
             </LinearLayout>
         </LinearLayout>
@@ -52,6 +71,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
+    </androidx.cardview.widget.CardView>
     <LinearLayout
         android:orientation="horizontal"
         android:id="@id/btn_switch_list"
