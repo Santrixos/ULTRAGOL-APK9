@@ -209,6 +209,49 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+        <!-- Sección de transmisiones en vivo -->
+        <LinearLayout
+            android:id="@+id/layout_streaming_links"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📺 Transmisiones Disponibles"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:gravity="center" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_streaming_links"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+        <!-- Botón para agregar transmisión -->
+        <Button
+            android:id="@+id/btn_add_streaming"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorAccent"
+            android:text="➕ Agregar Transmisión"
+            android:textColor="@color/colorBlack"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="8dp"
+            android:elevation="2dp" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -1,13 +1,19 @@
 package com.app.thestream.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Partido {
     private String local;
     private String visitante;
     private String dia;
     private String hora;
     private String estadio;
+    private List<StreamingLink> streamingLinks;
 
-    public Partido() {}
+    public Partido() {
+        this.streamingLinks = new ArrayList<>();
+    }
 
     public Partido(String local, String visitante, String dia, String hora, String estadio) {
         this.local = local;
@@ -15,6 +21,7 @@ public class Partido {
         this.dia = dia;
         this.hora = hora;
         this.estadio = estadio;
+        this.streamingLinks = new ArrayList<>();
     }
 
     public String getLocal() {
@@ -55,5 +62,24 @@ public class Partido {
 
     public void setEstadio(String estadio) {
         this.estadio = estadio;
+    }
+
+    public List<StreamingLink> getStreamingLinks() {
+        return streamingLinks;
+    }
+
+    public void setStreamingLinks(List<StreamingLink> streamingLinks) {
+        this.streamingLinks = streamingLinks != null ? streamingLinks : new ArrayList<>();
+    }
+
+    public void addStreamingLink(StreamingLink streamingLink) {
+        if (this.streamingLinks == null) {
+            this.streamingLinks = new ArrayList<>();
+        }
+        this.streamingLinks.add(streamingLink);
+    }
+
+    public boolean hasStreamingLinks() {
+        return streamingLinks != null && !streamingLinks.isEmpty();
     }
 }

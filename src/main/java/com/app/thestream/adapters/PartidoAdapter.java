@@ -4,21 +4,35 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.app.thestream.models.Partido;
+import com.app.thestream.models.StreamingLink;
 import com.mexicotv.futbolenvivoabierta.R;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PartidoAdapter extends RecyclerView.Adapter<PartidoAdapter.PartidoViewHolder> {
     
     private Context context;
     private List<Partido> partidos;
+    private OnAddStreamingClickListener onAddStreamingClickListener;
+
+    public interface OnAddStreamingClickListener {
+        void onAddStreamingClick(Partido partido, int position);
+    }
 
     public PartidoAdapter(Context context, List<Partido> partidos) {
         this.context = context;
         this.partidos = partidos;
+    }
+
+    public void setOnAddStreamingClickListener(OnAddStreamingClickListener listener) {
+        this.onAddStreamingClickListener = listener;
     }
 
     @NonNull
@@ -32,11 +46,35 @@ public class PartidoAdapter extends RecyclerView.Adapter<PartidoAdapter.PartidoV
     public void onBindViewHolder(@NonNull PartidoViewHolder holder, int position) {
         Partido partido = partidos.get(position);
         
+        // Datos básicos del partido
         holder.tvEquipoLocal.setText(partido.getLocal());
         holder.tvEquipoVisitante.setText(partido.getVisitante());
         holder.tvDia.setText(partido.getDia());
         holder.tvHora.setText(partido.getHora());
         holder.tvEstadio.setText(partido.getEstadio());
+
+        // Configurar streaming links
+        setupStreamingLinks(holder, partido, position);
+        
+        // Configurar botón de agregar transmisión
+        holder.btnAddStreaming.setOnClickListener(v -> {
+            if (onAddStreamingClickListener != null) {
+                onAddStreamingClickListener.onAddStreamingClick(partido, position);
+            }
+        });
+    }
+
+    private void setupStreamingLinks(PartidoViewHolder holder, Partido partido, int position) {
+        if (partido.hasStreamingLinks()) {
+            holder.layoutStreamingLinks.setVisibility(View.VISIBLE);
+            
+            // Configurar RecyclerView para streaming links
+            StreamingLinkAdapter streamingAdapter = new StreamingLinkAdapter(context, partido.getStreamingLinks());
+            holder.recyclerStreamingLinks.setLayoutManager(new LinearLayoutManager(context));
+            holder.recyclerStreamingLinks.setAdapter(streamingAdapter);
+        } else {
+            holder.layoutStreamingLinks.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -49,8 +87,25 @@ public class PartidoAdapter extends RecyclerView.Adapter<PartidoAdapter.PartidoV
         notifyDataSetChanged();
     }
 
+    public void updatePartidoStreamingLinks(int position, List<StreamingLink> streamingLinks) {
+        if (position >= 0 && position < partidos.size()) {
+            partidos.get(position).setStreamingLinks(streamingLinks);
+            notifyItemChanged(position);
+        }
+    }
+
+    public void addStreamingLinkToPartido(int position, StreamingLink streamingLink) {
+        if (position >= 0 && position < partidos.size()) {
+            partidos.get(position).addStreamingLink(streamingLink);
+            notifyItemChanged(position);
+        }
+    }
+
     static class PartidoViewHolder extends RecyclerView.ViewHolder {
         TextView tvEquipoLocal, tvEquipoVisitante, tvDia, tvHora, tvEstadio;
+        LinearLayout layoutStreamingLinks;
+        RecyclerView recyclerStreamingLinks;
+        Button btnAddStreaming;
 
         public PartidoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +114,9 @@ public class PartidoAdapter extends RecyclerView.Adapter<PartidoAdapter.PartidoV
             tvDia = itemView.findViewById(R.id.tv_dia);
             tvHora = itemView.findViewById(R.id.tv_hora);
             tvEstadio = itemView.findViewById(R.id.tv_estadio);
+            layoutStreamingLinks = itemView.findViewById(R.id.layout_streaming_links);
+            recyclerStreamingLinks = itemView.findViewById(R.id.recycler_streaming_links);
+            btnAddStreaming = itemView.findViewById(R.id.btn_add_streaming);
         }
     }
 }

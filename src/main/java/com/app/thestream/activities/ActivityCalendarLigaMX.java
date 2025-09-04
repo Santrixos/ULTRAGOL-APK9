@@ -18,13 +18,18 @@ import com.app.thestream.adapters.PartidoAdapter;
 import com.app.thestream.models.CalendarioLigaMX;
 import com.app.thestream.models.Jornada;
 import com.app.thestream.models.Partido;
+import com.app.thestream.models.StreamingLink;
 import com.app.thestream.utils.CalendarDataLoader;
 import com.app.thestream.utils.GeminiLigaMXService;
+import com.app.thestream.utils.FirebaseService;
+import com.app.thestream.utils.AddStreamingDialog;
+import com.google.firebase.FirebaseApp;
 import com.mexicotv.futbolenvivoabierta.R;
 import android.app.AlertDialog;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ActivityCalendarLigaMX extends AppCompatActivity {
     
@@ -41,17 +46,20 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
     private CalendarioLigaMX calendarioLigaMX;
     private int jornadaActual = 1;
     private GeminiLigaMXService geminiService;
+    private FirebaseService firebaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_ligamx);
         
+        initFirebase();
         initViews();
         setupToolbar();
         setupRecyclerView();
         setupClickListeners();
         initGeminiService();
+        initFirebaseService();
         loadCalendario();
     }
     
@@ -97,6 +105,12 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
     private void setupRecyclerView() {
         recyclerPartidos.setLayoutManager(new LinearLayoutManager(this));
         partidoAdapter = new PartidoAdapter(this, new ArrayList<>());
+        
+        // Configurar listener para agregar transmisiones
+        partidoAdapter.setOnAddStreamingClickListener((partido, position) -> {
+            showAddStreamingDialog(partido, position);
+        });
+        
         recyclerPartidos.setAdapter(partidoAdapter);
     }
     
@@ -132,9 +146,21 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
         Log.d(TAG, "✅ Click listeners configurados correctamente");
     }
     
+    private void initFirebase() {
+        if (FirebaseApp.getApps(this).isEmpty()) {
+            FirebaseApp.initializeApp(this);
+            Log.d(TAG, "🔥 Firebase inicializado");
+        }
+    }
+    
     private void initGeminiService() {
         geminiService = new GeminiLigaMXService();
         Log.d(TAG, "🤖 Servicio Gemini inicializado");
+    }
+    
+    private void initFirebaseService() {
+        firebaseService = FirebaseService.getInstance();
+        Log.d(TAG, "🔥 Servicio Firebase inicializado");
     }
     
     private void loadCalendario() {
@@ -175,6 +201,9 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
         updateJornadaInfo(jornada);
         updatePartidos(jornada.getPartidos());
         updateNavigationButtons();
+        
+        // Cargar streaming links para esta jornada
+        loadStreamingLinksForJornada(jornada.getPartidos());
         
         showLoading(false);
     }
@@ -351,5 +380,52 @@ public class ActivityCalendarLigaMX extends AppCompatActivity {
             .setNeutralButton("📰 Más Noticias", (dialog, which) -> showGeminiNoticias())
             .create()
             .show();
+    }
+    
+    private void showAddStreamingDialog(Partido partido, int position) {
+        AddStreamingDialog dialog = new AddStreamingDialog(
+            this, 
+            partido, 
+            position, 
+            (streamingLink, partidoPosition) -> {
+                // Agregar el streaming link al partido
+                partidoAdapter.addStreamingLinkToPartido(partidoPosition, streamingLink);
+                Log.d(TAG, "✅ Streaming link agregado para partido: " + partido.getLocal() + " vs " + partido.getVisitante());
+            }
+        );
+        dialog.show();
+    }
+    
+    private void loadStreamingLinksForJornada(List<Partido> partidos) {
+        firebaseService.getAllStreamingLinks(new FirebaseService.FirebaseCallback<Map<String, List<StreamingLink>>>() {
+            @Override
+            public void onSuccess(Map<String, List<StreamingLink>> streamingLinksByMatch) {
+                runOnUiThread(() -> {
+                    // Actualizar partidos con sus streaming links
+                    for (int i = 0; i < partidos.size(); i++) {
+                        Partido partido = partidos.get(i);
+                        String matchId = generateMatchId(partido, i);
+                        
+                        if (streamingLinksByMatch.containsKey(matchId)) {
+                            List<StreamingLink> links = streamingLinksByMatch.get(matchId);
+                            partido.setStreamingLinks(links);
+                            partidoAdapter.updatePartidoStreamingLinks(i, links);
+                        }
+                    }
+                    Log.d(TAG, "🔗 Streaming links cargados para " + streamingLinksByMatch.size() + " partidos");
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "❌ Error cargando streaming links: " + error);
+            }
+        });
+    }
+    
+    private String generateMatchId(Partido partido, int position) {
+        return "match_" + partido.getLocal().replaceAll("\\s+", "_") + 
+               "_vs_" + partido.getVisitante().replaceAll("\\s+", "_") + 
+               "_" + position;
     }
 }

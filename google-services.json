@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "437421248316",
+    "project_id": "ligamx-daf3d",
+    "storage_bucket": "ligamx-daf3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437421248316:android:38e9f436a57389d2c49839",
+        "android_client_info": {
+          "package_name": "com.mexicotv.futbolenvivoabierta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437421248316-example.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "YOUR_GOOGLE_API_KEY_HERE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437421248316-example.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

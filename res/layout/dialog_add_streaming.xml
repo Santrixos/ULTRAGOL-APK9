@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackgroundDark"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📺 Agregar Transmisión"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Información del partido -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorToolbarDark"
+            android:padding="12dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_dialog_partido_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Club América vs Guadalajara"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tv_dialog_partido_detalles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sábado 19:00 - Estadio Azteca"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <!-- URL de transmisión -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="URL de Transmisión:"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/et_stream_url"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorToolbarDark"
+            android:hint="https://www.youtube.com/watch?v=..."
+            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            android:padding="12dp"
+            android:inputType="textUri"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Plataforma -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Plataforma:"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_platform"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorToolbarDark"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Nombre del canal/streamer -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Canal/Streamer:"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/et_streamer_name"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorToolbarDark"
+            android:hint="Nombre del canal"
+            android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            android:padding="12dp"
+            android:inputType="text"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Botones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Cancelar"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@color/colorAccent"
+                android:text="➕ Agregar"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
