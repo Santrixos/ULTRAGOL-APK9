@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liga MX Calendar - Calendario de Partidos</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase JS SDK -->
+    <script type="module" src="firebase-config.js"></script>
 </head>
 <body>
     <div class="container">
@@ -18,6 +20,44 @@
                 <option value="">Todas las Jornadas</option>
             </select>
             <input type="text" id="teamSearch" placeholder="Buscar equipo...">
+            <button id="addStreamBtn" class="add-stream-btn">Agregar Transmisión</button>
+        </div>
+
+        <!-- Modal for adding streaming links -->
+        <div id="streamModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Agregar Link de Transmisión</h2>
+                <form id="streamForm">
+                    <div class="form-group">
+                        <label for="matchSelect">Partido:</label>
+                        <select id="matchSelect" required>
+                            <option value="">Selecciona un partido</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="streamUrl">URL de Transmisión:</label>
+                        <input type="url" id="streamUrl" placeholder="https://..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="platform">Plataforma:</label>
+                        <select id="platform" required>
+                            <option value="">Selecciona plataforma</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="twitch">Twitch</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="other">Otra plataforma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="streamerName">Nombre del Canal/Streamer:</label>
+                        <input type="text" id="streamerName" placeholder="Nombre del canal" required>
+                    </div>
+                    <button type="submit">Agregar Transmisión</button>
+                </form>
+            </div>
         </div>
 
         <div id="loading" class="loading">Cargando calendario...</div>
