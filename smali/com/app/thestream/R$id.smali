@@ -1032,45 +1032,45 @@
 
 .field public static final no_item_message:I = 0x7f0a01fc
 
-.field public static final none:I = 0x7f0a01fc
+.field public static final none:I = 0x7f0a01fd
 
-.field public static final normal:I = 0x7f0a01fd
+.field public static final normal:I = 0x7f0a01fe
 
-.field public static final notification_background:I = 0x7f0a01fe
+.field public static final notification_background:I = 0x7f0a01ff
 
-.field public static final notification_main_column:I = 0x7f0a01ff
+.field public static final notification_main_column:I = 0x7f0a0200
 
-.field public static final notification_main_column_container:I = 0x7f0a0200
+.field public static final notification_main_column_container:I = 0x7f0a0201
 
-.field public static final off:I = 0x7f0a0201
+.field public static final off:I = 0x7f0a0202
 
-.field public static final on:I = 0x7f0a0202
+.field public static final on:I = 0x7f0a0203
 
-.field public static final one:I = 0x7f0a0203
+.field public static final one:I = 0x7f0a0204
 
-.field public static final open_in_browser:I = 0x7f0a0204
+.field public static final open_in_browser:I = 0x7f0a0205
 
-.field public static final os_bgimage_notif_bgimage:I = 0x7f0a0205
+.field public static final os_bgimage_notif_bgimage:I = 0x7f0a0206
 
-.field public static final os_bgimage_notif_bgimage_align_layout:I = 0x7f0a0206
+.field public static final os_bgimage_notif_bgimage_align_layout:I = 0x7f0a0207
 
-.field public static final os_bgimage_notif_bgimage_right_aligned:I = 0x7f0a0207
+.field public static final os_bgimage_notif_bgimage_right_aligned:I = 0x7f0a0208
 
-.field public static final os_bgimage_notif_body:I = 0x7f0a0208
+.field public static final os_bgimage_notif_body:I = 0x7f0a0209
 
-.field public static final os_bgimage_notif_title:I = 0x7f0a0209
+.field public static final os_bgimage_notif_title:I = 0x7f0a020a
 
-.field public static final outline:I = 0x7f0a020a
+.field public static final outline:I = 0x7f0a020b
 
-.field public static final outward:I = 0x7f0a020b
+.field public static final outward:I = 0x7f0a020c
 
-.field public static final overflow:I = 0x7f0a020c
+.field public static final overflow:I = 0x7f0a020d
 
-.field public static final packed:I = 0x7f0a020d
+.field public static final packed:I = 0x7f0a020e
 
-.field public static final parallax:I = 0x7f0a020e
+.field public static final parallax:I = 0x7f0a020f
 
-.field public static final parent:I = 0x7f0a020f
+.field public static final parent:I = 0x7f0a0210
 
 .field public static final parentPanel:I = 0x7f0a0210
 

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga MX Calendar 2024</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .filters {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        select, input {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            color: #333;
+        }
+
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .match-card {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .match-teams {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .team-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .vs {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .match-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 40px 0;
+        }
+
+        .error {
+            background: #dc3545;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Liga MX Calendar</h1>
+            <p>Temporada 2024 - Calendario Completo</p>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="jornadaSelect">Jornada:</label>
+                <select id="jornadaSelect">
+                    <option value="">Todas las Jornadas</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="teamSearch">Buscar Equipo:</label>
+                <input type="text" id="teamSearch" placeholder="Nombre del equipo...">
+            </div>
+        </div>
+
+        <div class="loading" id="loading">Cargando calendario...</div>
+        <div class="error" id="error" style="display: none;"></div>
+        <div class="matches-grid" id="matchesGrid"></div>
+    </div>
+
+    <script>
+        class LigaMXCalendar {
+            constructor() {
+                this.calendarData = null;
+                this.filteredMatches = [];
+                this.init();
+            }
+
+            async init() {
+                await this.loadCalendarData();
+                this.setupEventListeners();
+                this.populateJornadaSelect();
+                this.displayMatches();
+            }
+
+            async loadCalendarData() {
+                try {
+                    const response = await fetch('/api/calendar');
+                    if (!response.ok) throw new Error('Error al cargar el calendario');
+                    this.calendarData = await response.json();
+                    this.filteredMatches = this.getAllMatches();
+                    document.getElementById('loading').style.display = 'none';
+                } catch (error) {
+                    this.showError('Error al cargar el calendario: ' + error.message);
+                }
+            }
+
+            getAllMatches() {
+                if (!this.calendarData || !this.calendarData.jornadas) return [];
+                return this.calendarData.jornadas.flatMap(jornada => 
+                    jornada.partidos.map(partido => ({...partido, jornada: jornada.numero}))
+                );
+            }
+
+            populateJornadaSelect() {
+                const select = document.getElementById('jornadaSelect');
+                if (!this.calendarData || !this.calendarData.jornadas) return;
+                
+                this.calendarData.jornadas.forEach(jornada => {
+                    const option = document.createElement('option');
+                    option.value = jornada.numero;
+                    option.textContent = `Jornada ${jornada.numero}`;
+                    select.appendChild(option);
+                });
+            }
+
+            setupEventListeners() {
+                document.getElementById('jornadaSelect').addEventListener('change', () => this.filterMatches());
+                document.getElementById('teamSearch').addEventListener('input', () => this.filterMatches());
+            }
+
+            filterMatches() {
+                const selectedJornada = document.getElementById('jornadaSelect').value;
+                const searchTerm = document.getElementById('teamSearch').value.toLowerCase();
+
+                this.filteredMatches = this.getAllMatches().filter(match => {
+                    const jornadaMatch = !selectedJornada || match.jornada.toString() === selectedJornada;
+                    const teamMatch = !searchTerm || 
+                        match.equipoLocal.toLowerCase().includes(searchTerm) ||
+                        match.equipoVisitante.toLowerCase().includes(searchTerm);
+                    return jornadaMatch && teamMatch;
+                });
+
+                this.displayMatches();
+            }
+
+            displayMatches() {
+                const grid = document.getElementById('matchesGrid');
+                grid.innerHTML = '';
+
+                if (this.filteredMatches.length === 0) {
+                    grid.innerHTML = '<div class="match-card"><p>No se encontraron partidos</p></div>';
+                    return;
+                }
+
+                this.filteredMatches.forEach(match => {
+                    const matchCard = this.createMatchCard(match);
+                    grid.appendChild(matchCard);
+                });
+            }
+
+            createMatchCard(match) {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.innerHTML = `
+                    <div class="match-header">
+                        <span>Jornada ${match.jornada}</span>
+                        <span>${match.fecha}</span>
+                    </div>
+                    <div class="match-teams">
+                        <div class="team-name">${match.equipoLocal}</div>
+                        <div class="vs">VS</div>
+                        <div class="team-name">${match.equipoVisitante}</div>
+                    </div>
+                    <div class="match-info">
+                        <div>${match.hora}</div>
+                        <div>${match.estadio}</div>
+                    </div>
+                `;
+                return card;
+            }
+
+            showError(message) {
+                document.getElementById('loading').style.display = 'none';
+                const errorDiv = document.getElementById('error');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Initialize calendar when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new LigaMXCalendar();
+        });
+    </script>
+</body>
+</html>

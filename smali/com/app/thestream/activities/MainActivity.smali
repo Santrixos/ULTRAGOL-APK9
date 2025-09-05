@@ -912,7 +912,7 @@
 .end method
 
 .method synthetic lambda$initRTLViewPager$1$com-app-thestream-activities-MainActivity(Landroid/view/MenuItem;)Z
-    .locals 2
+    .locals 3
 
     .line 205
     invoke-interface {p1}, Landroid/view/MenuItem;->getItemId()I
@@ -996,7 +996,7 @@
 .end method
 
 .method synthetic lambda$initViewPager$0$com-app-thestream-activities-MainActivity(Landroid/view/MenuItem;)Z
-    .locals 2
+    .locals 3
 
     .line 138
     invoke-interface {p1}, Landroid/view/MenuItem;->getItemId()I
