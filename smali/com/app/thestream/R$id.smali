@@ -1018,17 +1018,19 @@
 
 .field public static final navigation_favorite:I = 0x7f0a01f5
 
-.field public static final navigation_header_container:I = 0x7f0a01f6
+.field public static final navigation_calendar:I = 0x7f0a01f6
 
-.field public static final navigation_recent:I = 0x7f0a01f7
+.field public static final navigation_header_container:I = 0x7f0a01f7
 
-.field public static final navigation_settings:I = 0x7f0a01f8
+.field public static final navigation_recent:I = 0x7f0a01f8
 
-.field public static final never:I = 0x7f0a01f9
+.field public static final navigation_settings:I = 0x7f0a01f9
 
-.field public static final noScroll:I = 0x7f0a01fa
+.field public static final never:I = 0x7f0a01fa
 
-.field public static final no_item_message:I = 0x7f0a01fb
+.field public static final noScroll:I = 0x7f0a01fb
+
+.field public static final no_item_message:I = 0x7f0a01fc
 
 .field public static final none:I = 0x7f0a01fc
 
