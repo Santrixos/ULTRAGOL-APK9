@@ -236,8 +236,8 @@
                 this.filteredMatches = this.getAllMatches().filter(match => {
                     const jornadaMatch = !selectedJornada || match.jornada.toString() === selectedJornada;
                     const teamMatch = !searchTerm || 
-                        match.equipoLocal.toLowerCase().includes(searchTerm) ||
-                        match.equipoVisitante.toLowerCase().includes(searchTerm);
+                        match.local.toLowerCase().includes(searchTerm) ||
+                        match.visitante.toLowerCase().includes(searchTerm);
                     return jornadaMatch && teamMatch;
                 });
 
@@ -265,12 +265,12 @@
                 card.innerHTML = `
                     <div class="match-header">
                         <span>Jornada ${match.jornada}</span>
-                        <span>${match.fecha}</span>
+                        <span>${match.dia}</span>
                     </div>
                     <div class="match-teams">
-                        <div class="team-name">${match.equipoLocal}</div>
+                        <div class="team-name">${match.local}</div>
                         <div class="vs">VS</div>
-                        <div class="team-name">${match.equipoVisitante}</div>
+                        <div class="team-name">${match.visitante}</div>
                     </div>
                     <div class="match-info">
                         <div>${match.hora}</div>
