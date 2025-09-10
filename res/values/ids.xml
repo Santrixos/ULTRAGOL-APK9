@@ -387,6 +387,7 @@
     <item type="id" name="navigation_header_container" />
     <item type="id" name="navigation_recent" />
     <item type="id" name="navigation_settings" />
+    <item type="id" name="navigation_ultragol" />
     <item type="id" name="no_item_message" />
     <item type="id" name="notification_background" />
     <item type="id" name="notification_main_column" />

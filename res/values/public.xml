@@ -2796,6 +2796,8 @@
     <public type="id" name="navigation_header_container" id="0x7f0a01f6" />
     <public type="id" name="navigation_recent" id="0x7f0a01f7" />
     <public type="id" name="navigation_settings" id="0x7f0a01f8" />
+    <public type="id" name="navigation_ultragol" id="0x7f0a0500" />
+    <public type="id" name="navigation_calendar" id="0x7f0a0501" />
     <public type="id" name="never" id="0x7f0a01f9" />
     <public type="id" name="noScroll" id="0x7f0a01fa" />
     <public type="id" name="no_item_message" id="0x7f0a01fb" />
