@@ -953,29 +953,10 @@
     :cond_2
     packed-switch p1, :pswitch_data_0
 
-    :pswitch_0
     .line 212
-    new-instance p1, Landroid/content/Intent;
+    return v0
 
-    const-class v0, Lcom/app/thestream/activities/ActivityWebView;
-
-    invoke-direct {p1, p0, v0}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-
-    const-string v0, "title"
-
-    const-string v2, "Liga MX Calendar"
-
-    invoke-virtual {p1, v0, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
-
-    const-string v0, "url"
-
-    const-string v2, "https://santrixos.github.io/LigaMXStats/calendario.html"
-
-    invoke-virtual {p1, v0, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
-
-    invoke-virtual {p0, p1}, Lcom/app/thestream/activities/MainActivity;->startActivity(Landroid/content/Intent;)V
-
-    return v1
+    :pswitch_0
 
     .line 216
     :pswitch_1
@@ -1065,29 +1046,10 @@
     :cond_1
     packed-switch p1, :pswitch_data_0
 
-    :pswitch_0
     .line 145
-    new-instance p1, Landroid/content/Intent;
+    return v0
 
-    const-class v0, Lcom/app/thestream/activities/ActivityWebView;
-
-    invoke-direct {p1, p0, v0}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-
-    const-string v0, "title"
-
-    const-string v2, "Liga MX Calendar"
-
-    invoke-virtual {p1, v0, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
-
-    const-string v0, "url"
-
-    const-string v2, "https://santrixos.github.io/LigaMXStats/calendario.html"
-
-    invoke-virtual {p1, v0, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
-
-    invoke-virtual {p0, p1}, Lcom/app/thestream/activities/MainActivity;->startActivity(Landroid/content/Intent;)V
-
-    return v1
+    :pswitch_0
 
     .line 149
     :pswitch_1
