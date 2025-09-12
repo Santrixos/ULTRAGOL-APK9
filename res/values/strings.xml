@@ -369,6 +369,6 @@
     <string name="jornada_doble">Jornada Doble</string>
     
     <!-- ULTRAGOL Button -->
-    <string name="ir_a_pagina">IR A PAGINA</string>
+    <string name="ir_a_pagina">IR A PÁGINA PRINCIPAL</string>
     <string name="ultragol_url">https://santrixos.github.io/ULTRAGOL-PAG/</string>
 </resources>
