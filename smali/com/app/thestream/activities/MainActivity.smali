@@ -1533,3 +1533,23 @@
 
     return-void
 .end method
+
+.method public openUltragol(Landroid/view/View;)V
+    .locals 3
+
+    const-string v0, "https://santrixos.github.io/ULTRAGOL-PAG/"
+
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v2
+
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v0, "android.intent.action.VIEW"
+
+    invoke-direct {v1, v0, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    invoke-virtual {p0, v1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+
+    return-void
+.end method

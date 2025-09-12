@@ -367,4 +367,8 @@
     <string name="no_partidos_disponibles">No hay partidos disponibles para esta jornada</string>
     <string name="partido_reprogramado">Reprogramado</string>
     <string name="jornada_doble">Jornada Doble</string>
+    
+    <!-- ULTRAGOL Button -->
+    <string name="ir_a_pagina">IR A PAGINA</string>
+    <string name="ultragol_url">https://santrixos.github.io/ULTRAGOL-PAG/</string>
 </resources>
