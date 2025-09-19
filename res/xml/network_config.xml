@@ -5,11 +5,29 @@
         <trust-anchors>
             <certificates
                 src="system" />
+            <certificates
+                src="user" />
         </trust-anchors>
     </base-config>
     <domain-config
         cleartextTrafficPermitted="true">
         <domain
             includeSubdomains="true">127.0.0.1</domain>
+        <domain
+            includeSubdomains="true">localhost</domain>
+        <domain
+            includeSubdomains="true">10.0.0.0/8</domain>
+        <domain
+            includeSubdomains="true">172.16.0.0/12</domain>
+        <domain
+            includeSubdomains="true">192.168.0.0/16</domain>
+    </domain-config>
+    <!-- Configuración para permitir todos los dominios HTTPS con cookies -->
+    <domain-config>
+        <domain includeSubdomains="true">*</domain>
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
     </domain-config>
 </network-security-config>
