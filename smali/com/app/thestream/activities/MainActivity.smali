@@ -942,7 +942,7 @@
 
     const-string v0, "url"
 
-    const-string v2, "https://santrixos.github.io/ULTRAGOL-LIVE/"
+    const-string v2, "https://santrixos.github.io/ULTRAGOL-PAG9/ULTRA/index.html"
 
     invoke-virtual {p1, v0, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
@@ -1035,7 +1035,7 @@
 
     const-string v0, "url"
 
-    const-string v2, "https://santrixos.github.io/ULTRAGOL-LIVE/"
+    const-string v2, "https://santrixos.github.io/ULTRAGOL-PAG9/ULTRA/index.html"
 
     invoke-virtual {p1, v0, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
@@ -1537,7 +1537,7 @@
 .method public openUltragol(Landroid/view/View;)V
     .locals 3
 
-    const-string v0, "https://santrixos.github.io/ULTRAGOL-PAG/"
+    const-string v0, "https://santrixos.github.io/ULTRAGOL-PAG9/"
 
     invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
 

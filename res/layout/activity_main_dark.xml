@@ -43,8 +43,7 @@
                     android:elevation="8dp"
                     android:stateListAnimator="@null"
                     android:fontFamily="sans-serif-medium"
-                    android:letterSpacing="0.05"
-                    android:drawableLeft="🌐"
+                    android:letterSpacing="0.05"                   
                     android:drawablePadding="8dp"
                     android:onClick="openUltragol" />
             </com.google.android.material.appbar.AppBarLayout>
