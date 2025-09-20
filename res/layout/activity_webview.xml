@@ -27,5 +27,17 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             layout="@layout/include_failed" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_cast_to_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="#FF1565C0"
+            android:src="@drawable/ic_cast_to_tv"
+            android:contentDescription="Transmitir a TV"
+            android:elevation="8dp" />
     </RelativeLayout>
 </RelativeLayout>

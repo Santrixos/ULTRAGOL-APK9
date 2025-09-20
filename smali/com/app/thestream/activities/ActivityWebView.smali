@@ -27,6 +27,8 @@
 
 .field webView:Landroid/webkit/WebView;
 
+.field fabCastToTv:Lcom/google/android/material/floatingactionbutton/FloatingActionButton;
+
 
 # direct methods
 .method public constructor <init>()V
@@ -57,6 +59,72 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
+    return-void
+.end method
+
+.method synthetic lambda$onCreate$1$com-app-thestream-activities-ActivityWebView(Landroid/view/View;)V
+    .locals 4
+
+    # Obtener URL actual del WebView
+    iget-object p1, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {p1}, Landroid/webkit/WebView;->getUrl()Ljava/lang/String;
+    move-result-object v0
+
+    # Crear Intent para Web Video Caster
+    new-instance v1, Landroid/content/Intent;
+    const-string v2, "android.intent.action.VIEW"
+    invoke-direct {v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    # Configurar datos para video stream
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+    move-result-object v2
+    const-string v3, "video/*"
+    invoke-virtual {v1, v2, v3}, Landroid/content/Intent;->setDataAndType(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/Intent;
+
+    # Especificar package de Web Video Caster
+    const-string v2, "com.instantbits.cast.webvideo"
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
+
+    # Agregar título del stream
+    iget-object v2, p0, Lcom/app/thestream/activities/ActivityWebView;->title:Ljava/lang/String;
+    if-eqz v2, :cond_0
+    const-string v3, "title"
+    invoke-virtual {v1, v3, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    :cond_0
+    # Agregar headers para mejor compatibilidad
+    new-instance v2, Landroid/os/Bundle;
+    invoke-direct {v2}, Landroid/os/Bundle;-><init>()V
+    const-string v3, "User-Agent"
+    invoke-virtual {p1}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object p1
+    invoke-virtual {p1}, Landroid/webkit/WebSettings;->getUserAgentString()Ljava/lang/String;
+    move-result-object p1
+    invoke-virtual {v2, v3, p1}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+    const-string p1, "android.media.intent.extra.HTTP_HEADERS"
+    invoke-virtual {v1, p1, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Bundle;)Landroid/content/Intent;
+
+    # Lanzar Web Video Caster
+    :try_start_0
+    invoke-virtual {p0, v1}, Lcom/app/thestream/activities/ActivityWebView;->startActivity(Landroid/content/Intent;)V
+    :try_end_0
+    .catch Landroid/content/ActivityNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    # Si Web Video Caster no está instalado, abrir Play Store
+    :catch_0
+    move-exception p1
+    new-instance p1, Landroid/content/Intent;
+    const-string v0, "android.intent.action.VIEW"
+    invoke-direct {p1, v0}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+    const-string v0, "market://details?id=com.instantbits.cast.webvideo"
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+    move-result-object v0
+    invoke-virtual {p1, v0}, Landroid/content/Intent;->setData(Landroid/net/Uri;)Landroid/content/Intent;
+    invoke-virtual {p0, p1}, Lcom/app/thestream/activities/ActivityWebView;->startActivity(Landroid/content/Intent;)V
+
+    :goto_0
     return-void
 .end method
 
@@ -306,6 +374,18 @@
 
     .line 66
     invoke-virtual {p0}, Lcom/app/thestream/activities/ActivityWebView;->setupToolbar()V
+
+    # Inicializar FloatingActionButton para Web Video Caster
+    const p1, 0x7f0a00fb
+    invoke-virtual {p0, p1}, Lcom/app/thestream/activities/ActivityWebView;->findViewById(I)Landroid/view/View;
+    move-result-object p1
+    check-cast p1, Lcom/google/android/material/floatingactionbutton/FloatingActionButton;
+    iput-object p1, p0, Lcom/app/thestream/activities/ActivityWebView;->fabCastToTv:Lcom/google/android/material/floatingactionbutton/FloatingActionButton;
+
+    # Configurar click listener para Web Video Caster
+    new-instance v0, Lcom/app/thestream/activities/ActivityWebView$$ExternalSyntheticLambda2;
+    invoke-direct {v0, p0}, Lcom/app/thestream/activities/ActivityWebView$$ExternalSyntheticLambda2;-><init>(Lcom/app/thestream/activities/ActivityWebView;)V
+    invoke-virtual {p1, v0}, Lcom/google/android/material/floatingactionbutton/FloatingActionButton;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     return-void
 .end method
