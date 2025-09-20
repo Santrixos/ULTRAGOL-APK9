@@ -171,7 +171,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name="com.app.thestream.activities.ActivityWebView"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:exported="false" />
         <activity
             android:name="com.app.thestream.activities.ActivityRedirect"
             android:configChanges="keyboardHidden|orientation|screenSize" />
