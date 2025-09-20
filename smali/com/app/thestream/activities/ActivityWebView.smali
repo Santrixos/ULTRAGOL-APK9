@@ -128,6 +128,88 @@
 
     invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setCacheMode(I)V
 
+    # === CONFIGURACIONES PARA INTERACTIVIDAD Y COOKIES ===
+    
+    # Configurar CookieManager
+    invoke-static {}, Landroid/webkit/CookieManager;->getInstance()Landroid/webkit/CookieManager;
+    move-result-object v0
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/webkit/CookieManager;->setAcceptCookie(Z)V
+
+    # Habilitar cookies de terceros
+    iget-object v2, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0, v2, v1}, Landroid/webkit/CookieManager;->setAcceptThirdPartyCookies(Landroid/webkit/WebView;Z)V
+
+    # Habilitar DOM Storage (CRÍTICO para botones)
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setDomStorageEnabled(Z)V
+
+    # Habilitar Database
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setDatabaseEnabled(Z)V
+
+    # Habilitar AppCache
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setAppCacheEnabled(Z)V
+
+    # Configurar Wide Viewport
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setUseWideViewPort(Z)V
+
+    # Configurar Load with Overview Mode
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setLoadWithOverviewMode(Z)V
+
+    # Permitir JavaScript abrir ventanas
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setJavaScriptCanOpenWindowsAutomatically(Z)V
+
+    # Configurar User Agent mejorado
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0}, Landroid/webkit/WebSettings;->getUserAgentString()Ljava/lang/String;
+    move-result-object v2
+    new-instance v3, Ljava/lang/StringBuilder;
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    const-string v2, " Chrome/91.0 Mobile Safari/537.36"
+    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v2
+    invoke-virtual {v0, v2}, Landroid/webkit/WebSettings;->setUserAgentString(Ljava/lang/String;)V
+
+    # Configurar contenido mixto
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    const/4 v2, 0x0
+    invoke-virtual {v0, v2}, Landroid/webkit/WebSettings;->setMixedContentMode(I)V
+
+    # Permitir acceso a archivos
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V
+
+    # Permitir acceso a contenido
+    iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
+    invoke-virtual {v0}, Landroid/webkit/WebView;->getSettings()Landroid/webkit/WebSettings;
+    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/webkit/WebSettings;->setAllowContentAccess(Z)V
+
     .line 100
     iget-object v0, p0, Lcom/app/thestream/activities/ActivityWebView;->webView:Landroid/webkit/WebView;
 
